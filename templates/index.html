@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Exlude - Asistente AI potenciado por Gemini">
+    <title>Exlude - Power by Afabi,Steven</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <div class="header-content">
+                <div class="logo-container">
+                    <a href="#" onclick="location.reload(); return false;">
+  <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Exlude" class="app-logo">
+</a>
+<h1 class="app-title">Exlude</h1>
+                </div>
+                <div class="ai-badge">
+                    <a href="https://gemini.google.com/app?hl=us" target="_blank" style="text-decoration: none; color: inherit;">
+  <img src="{{ url_for('static', filename='img/gemini-logo.png') }}" alt="Gemini AI" class="gemini-logo">
+  <span class="badge-text">Powered by Gemini</span>
+</a>
+
+                </div>
+            </div>
+        </header>
+
+        <main class="chat-container">
+            <div id="chatMessages" class="chat-messages"></div>
+            
+            <div id="typingIndicator" class="typing-indicator">
+                <div class="typing-bubble">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </main>
+
+        <div class="input-section">
+            <div class="input-wrapper">
+                <textarea 
+                    id="messageInput" 
+                    class="message-input" 
+                    placeholder="Escribe tu mensaje aquí..."
+                    rows="1"
+                    maxlength="2000"
+                ></textarea>
+                <button id="sendButton" class="send-button" aria-label="Enviar mensaje">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M22 2L11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="char-counter">
+                <span id="charCount">0</span> / 2000
+            </div>
+        </div>
+
+        <footer class="app-footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <a href="#" class="footer-link">Términos y Condiciones</a>
+                    <a href="#" class="footer-link">Política de Privacidad</a>
+                </div>
+                <div class="footer-section">
+                    <button class="donate-button">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="currentColor"/>
+                        </svg>
+                        <a href="https://www.paypal.com/donate/?hosted_button_id=JY6J5KAB6MAC4" target="_blank" style="color: inherit; text-decoration: none;">Apoya el proyecto</a>
+
+
+                    </button>
+                </div>
+                <div class="footer-section social-links">
+                    <a href="#" class="social-link" aria-label="Twitter">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+                        </svg>
+                    </a>
+                    <a href="https://github.com/Xodal/Exlude" target="_blank" class="social-link" aria-label="GitHub">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-link" aria-label="LinkedIn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                            <rect x="2" y="9" width="4" height="12"/>
+                            <circle cx="4" cy="4" r="2"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        const ChatApp = {
+            elements: {
+                chatMessages: document.getElementById('chatMessages'),
+                messageInput: document.getElementById('messageInput'),
+                sendButton: document.getElementById('sendButton'),
+                typingIndicator: document.getElementById('typingIndicator'),
+                charCount: document.getElementById('charCount')
+            },
+
+            init() {
+                this.bindEvents();
+                this.adjustTextareaHeight();
+                this.focusInput();
+            },
+
+            bindEvents() {
+                this.elements.sendButton.addEventListener('click', () => this.sendMessage());
+                this.elements.messageInput.addEventListener('keydown', (e) => this.handleKeyDown(e));
+                this.elements.messageInput.addEventListener('input', () => this.handleInput());
+            },
+
+            handleKeyDown(e) {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    this.sendMessage();
+                }
+            },
+
+            handleInput() {
+                this.adjustTextareaHeight();
+                this.updateCharCount();
+            },
+
+            adjustTextareaHeight() {
+                const textarea = this.elements.messageInput;
+                textarea.style.height = 'auto';
+                textarea.style.height = Math.min(textarea.scrollHeight, 120) + 'px';
+            },
+
+            updateCharCount() {
+                const length = this.elements.messageInput.value.length;
+                this.elements.charCount.textContent = length;
+                this.elements.charCount.classList.toggle('warning', length > 1800);
+            },
+
+            async sendMessage() {
+                const message = this.elements.messageInput.value.trim();
+                if (!message) return;
+
+                this.addMessage(message, 'user');
+                this.elements.messageInput.value = '';
+                this.adjustTextareaHeight();
+                this.updateCharCount();
+                this.showTyping();
+
+                try {
+                    const response = await fetch('/chat', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ message })
+                    });
+
+                    const data = await response.json();
+                    this.hideTyping();
+
+                    if (data.success) {
+                        this.addMessage(data.response, 'assistant');
+                    } else {
+                        this.addMessage(data.error || 'Error al procesar el mensaje', 'error');
+                    }
+                } catch (error) {
+                    this.hideTyping();
+                    this.addMessage('Error de conexión. Por favor, intenta de nuevo.', 'error');
+                }
+
+                this.focusInput();
+            },
+
+            addMessage(content, type) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message ${type}-message fade-in`;
+                
+                const avatar = document.createElement('div');
+                avatar.className = 'message-avatar';
+                avatar.textContent = type === 'user' ? 'U' : type === 'assistant' ? 'G' : '!';
+                
+                const contentDiv = document.createElement('div');
+                contentDiv.className = 'message-content';
+                contentDiv.textContent = content;
+                
+                messageDiv.appendChild(avatar);
+                messageDiv.appendChild(contentDiv);
+                
+                this.elements.chatMessages.appendChild(messageDiv);
+                this.scrollToBottom();
+            },
+
+            showTyping() {
+                this.elements.typingIndicator.classList.add('active');
+                this.scrollToBottom();
+            },
+
+            hideTyping() {
+                this.elements.typingIndicator.classList.remove('active');
+            },
+
+            scrollToBottom() {
+                setTimeout(() => {
+                    this.elements.chatMessages.scrollTo({
+                        top: this.elements.chatMessages.scrollHeight,
+                        behavior: 'smooth'
+                    });
+                }, 100);
+            },
+
+            focusInput() {
+                this.elements.messageInput.focus();
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => ChatApp.init());
+    </script>
+</body>
+</html>

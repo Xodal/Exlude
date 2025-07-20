@@ -8,7 +8,7 @@ app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
 app.config['JSON_SORT_KEYS'] = False
 
-GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY', 'AIzaSyAmCkNAMHu20gsDRQKzzOh5HcavgX8d-r8')
+GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY', 'APIKEY')
 genai.configure(api_key=GEMINI_API_KEY)
 
 generation_config = {
